@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AgroSmart Pro - Intelligent Agriculture Platform</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #FFFFFF;
+            color: #1B1B1B;
+            line-height: 1.6;
+        }
+
+        /* Color Theme: Green 40%, White 40%, Gold 20% */
+        :root {
+            --primary-green: #2E7D32;
+            --secondary-green: #4CAF50;
+            --light-green: #E8F5E9;
+            --gold: #FDD835;
+            --dark-gold: #F9A825;
+            --white: #FFFFFF;
+            --dark: #1B1B1B;
+            --gray: #F5F5F5;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s;
+        }
+
+        .navbar.scrolled {
+            padding: 0.7rem 0;
+            background: rgba(255,255,255,0.98);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-green), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo i {
+            background: none;
+            -webkit-text-fill-color: var(--primary-green);
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .language-selector select {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--gold);
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 70%, var(--gold) 100%);
+            padding: 140px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(135deg, var(--primary-green), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            box-shadow: 0 4px 15px rgba(46,125,50,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46,125,50,0.4);
+        }
+
+        .btn-secondary {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            background: var(--dark-gold);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .stat h3 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
+        .stat p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-green), var(--gold));
+            border-radius: 3px;
+        }
+
+        .section-header p {
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        .gray-bg {
+            background: var(--gray);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Prediction Grid */
+        .prediction-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group label i {
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+        }
+
+        .btn-full {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .yield-display {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 16px;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .yield-display .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .yield-display .value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0 0.5rem;
+        }
+
+        .yield-display .unit {
+            font-size: 1rem;
+        }
+
+        .confidence {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            height: 100%;
+            transition: width 0.5s;
+            border-radius: 5px;
+        }
+
+        .recommendation-box {
+            background: var(--light-green);
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin-top: 1rem;
+        }
+
+        .recommendation-box h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .tips {
+            margin-top: 1rem;
+        }
+
+        .tip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: var(--white);
+            border-radius: 10px;
+        }
+
+        .tip i {
+            color: var(--gold);
+        }
+
+        /* Map */
+        .map-container {
+            margin-bottom: 1.5rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--light-green);
+            border-radius: 10px;
+        }
+
+        .info-item i {
+            color: var(--gold);
+        }
+
+        .btn-small {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        /* Analytics */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        .chart-card {
+            padding: 1.5rem;
+        }
+
+        .chart-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        /* Chat */
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: var(--light-green);
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .message.bot .message-content {
+            background: var(--white);
+            border: 1px solid var(--gold);
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+        }
+
+        .message.user i {
+            display: none;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
+            background: var(--white);
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            margin-right: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-input-area button {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chat-input-area button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Schemes - Clickable Cards */
+        .schemes-filter {
+            margin-bottom: 2rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .schemes-filter input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .schemes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .scheme-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scheme-card:hover {
+            transform: translateX(5px) translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .scheme-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            opacity: 0.1;
+            border-radius: 0 0 0 100%;
+            transition: all 0.3s;
+        }
+
+        .scheme-card:hover::before {
+            opacity: 0.2;
+            width: 80px;
+            height: 80px;
+        }
+
+        .scheme-card h4 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .scheme-card .external-icon {
+            color: var(--gold);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .scheme-card:hover .external-icon {
+            opacity: 1;
+        }
+
+        .scheme-card .benefit {
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0.5rem 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* News */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-card .category-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 0.2rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-card .date {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 0.5rem;
+        }
+
+        /* Shop */
+        .shop-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-green);
+            background: transparent;
+            color: var(--primary-green);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .shop-item {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .shop-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--light-green);
+        }
+
+        .shop-item-content {
+            padding: 1rem;
+        }
+
+        .shop-item h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .shop-item .price {
+            color: var(--primary-green);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .buy-btn {
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            color: var(--dark);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1B1B1B, #2d2d2d);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-section a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .footer-section p i {
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .prediction-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            
+            .section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                <span>AgroSmart Pro</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="active">Home</a>
+                <a href="#prediction">Crop Predictor</a>
+                <a href="#map">Farm Map</a>
+                <a href="#analytics">Analytics</a>
+                <a href="#assistant">AI Assistant</a>
+                <a href="#schemes">Schemes</a>
+                <a href="#shop">Agri Shop</a>
+            </div>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="hi">🇮🇳 हिंदी</option>
+                    <option value="gu">🇮🇳 ગુજરાતી</option>
+                </select>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Smart Agriculture for<br><span>Modern Farmers</span></h1>
+            <p>AI-powered insights, real-time weather, and expert recommendations to maximize your crop yield</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToPrediction()">
+                    <i class="fas fa-chart-line"></i> Start Predicting
+                </button>
+                <button class="btn-secondary" onclick="scrollToAssistant()">
+                    <i class="fas fa-robot"></i> Ask AI Assistant
+                </button>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <h3>10K+</h3>
+                <p>Farmers Trust Us</p>
+            </div>
+            <div class="stat">
+                <h3>25%</h3>
+                <p>Avg Yield Increase</p>
+            </div>
+            <div class="stat">
+                <h3>15+</h3>
+                <p>States Covered</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Crop Prediction Section -->
+    <section id="prediction" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-brain"></i> Smart Crop Prediction</h2>
+                <p>AI-powered yield prediction based on your farm conditions</p>
+            </div>
+            
+            <div class="prediction-grid">
+                <div class="prediction-form card">
+                    <h3>Enter Farm Details</h3>
+                    <div class="form-group">
+                        <label><i class="fas fa-temperature-high"></i> Temperature (°C)</label>
+                        <input type="number" id="temperature" step="0.1" value="28">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-tint"></i> Rainfall (mm/year)</label>
+                        <input type="number" id="rainfall" step="0.1" value="1200">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-smog"></i> Humidity (%)</label>
+                        <input type="number" id="humidity" step="0.1" value="65">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-globe-asia"></i> Soil Type</label>
+                        <select id="soilType">
+                            <option value="Loamy">🌱 Loamy Soil (Best for most crops)</option>
+                            <option value="Sandy">🏜️ Sandy Soil (Good for millets)</option>
+                            <option value="Clay">🏺 Clay Soil (Best for rice)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-seedling"></i> Crop Type</label>
+                        <select id="cropType">
+                            <option value="Rice">🍚 Rice</option>
+                            <option value="Wheat">🌾 Wheat</option>
+                            <option value="Cotton">🌿 Cotton</option>
+                            <option value="Sugarcane">🎋 Sugarcane</option>
+                            <option value="Millet">🌽 Millet</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary btn-full" onclick="predictCrop()">
+                        <i class="fas fa-chart-line"></i> Predict Yield
+                    </button>
+                </div>
+                
+                <div class="prediction-result card" id="predictionResult" style="display: none;">
+                    <h3>Prediction Results</h3>
+                    <div class="result-content">
+                        <div class="yield-display">
+                            <span class="label">Predicted Yield:</span>
+                            <span class="value" id="yieldValue">0</span>
+                            <span class="unit">kg/hectare</span>
+                        </div>
+                        <div class="confidence">
+                            <span class="label">Confidence Score:</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="confidenceFill" style="width: 0%"></div>
+                            </div>
+                            <span id="confidenceValue">0%</span>
+                        </div>
+                        <div class="recommendation-box" id="recommendationBox">
+                            <h4><i class="fas fa-lightbulb"></i> Recommendation</h4>
+                            <p id="recommendationText">Loading...</p>
+                            <div class="tips">
+                                <div class="tip">
+                                    <i class="fas fa-flask"></i>
+                                    <span id="fertilizerTip">-</span>
+                                </div>
+                                <div class="tip">
+                                    <i class="fas fa-water"></i>
+                                    <span id="irrigationTip">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section id="map" class="section gray-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-map-marked-alt"></i> Interactive Farm Map</h2>
+                <p>Click on any state for local soil and weather information</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="indiaMap" style="height: 500px; border-radius: 20px;"></div>
+            </div>
+            
+            <div class="map-info card" id="mapInfo" style="display: none;">
+                <h4 id="selectedLocation">Location Selected</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span id="soilInfo">Soil Type: Loamy</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-temperature-high"></i>
+                        <span id="tempInfo">Temp: 28°C</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-tint"></i>
+                        <span id="humidityInfo">Humidity: 65%</span>
+                    </div>
+                </div>
+                <button class="btn-small" onclick="fillFormFromMap()">
+                    <i class="fas fa-arrow-right"></i> Use for Prediction
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Dashboard -->
+    <section id="analytics" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> Yield Analytics Dashboard</h2>
+                <p>Visualize trends and make data-driven decisions</p>
+            </div>
+            
+            <div class="analytics-grid">
+                <div class="chart-card card">
+                    <h3>Crop Yield Comparison</h3>
+                    <canvas id="yieldChart"></canvas>
+                </div>
+                <div class="chart-card card">
+                    <h3>Weather Impact Analysis</h3>
+                    <canvas id="weatherChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant Section -->
+    <section id="assistant" class="section gray-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-robot"></i> AI Agriculture Assistant</h2>
+                <p>Get instant answers to your farming questions</p>
+            </div>
+            
+            <div class="chat-container card">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <div class="message-content">
+                            <i class="fas fa-robot"></i>
+                            <p>Namaste! I'm your AI agriculture assistant. Ask me about crops, fertilizers, pests, irrigation, or government schemes!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Ask me anything about farming..." onkeypress="handleChatKeyPress(event)">
+                    <button onclick="sendChatMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Government Schemes Dashboard - Clickable Cards -->
+    <section id="schemes" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-gavel"></i> Government Schemes</h2>
+                <p>Click on any scheme to visit official government website</p>
+            </div>
+            
+            <div class="schemes-filter">
+                <input type="text" id="schemeSearch" placeholder="🔍 Search schemes..." onkeyup="filterSchemes()">
+            </div>
+            
+            <div class="schemes-grid" id="schemesGrid"></div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="section gray-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-newspaper"></i> Agriculture News</h2>
+                <p>Latest updates from Indian and global agriculture</p>
+            </div>
+            
+            <div class="news-grid" id="newsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Agri Shop -->
+    <section id="shop" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-store"></i> Agri Shop</h2>
+                <p>Quality agricultural products at best prices</p>
+            </div>
+            
+            <div class="shop-categories">
+                <button class="category-btn active" onclick="showShopCategory('fertilizers')">🌱 Fertilizers</button>
+                <button class="category-btn" onclick="showShopCategory('tools')">🔧 Tools & Equipment</button>
+                <button class="category-btn" onclick="showShopCategory('seeds')">🌾 Seeds</button>
+            </div>
+            
+            <div class="shop-grid" id="shopGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-seedling"></i> AgroSmart Pro</h4>
+                    <p>Empowering Indian farmers with AI-driven agriculture solutions</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#prediction">🌾 Crop Predictor</a>
+                    <a href="#map">🗺️ Farm Map</a>
+                    <a href="#assistant">🤖 AI Assistant</a>
+                    <a href="#schemes">📋 Government Schemes</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> support@agrosmartpro.com</p>
+                    <p><i class="fas fa-phone"></i> 1800-123-4567</p>
+                    <p><i class="fab fa-whatsapp"></i> +91 98765 43210</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AgroSmart Pro. Making farming smarter, together.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Global variables
+        let yieldChart = null;
+        let weatherChart = null;
+        let indiaMap = null;
+        let currentLocation = null;
+        let currentShopCategory = 'fertilizers';
+
+        // Government Schemes with official website links
+        const governmentSchemes = [
+            { 
+                name: 'PM-KISAN Samman Nidhi', 
+                description: 'Income support of ₹6000 per year to small farmers', 
+                benefit: '₹6000/year', 
+                eligibility: 'Small and marginal farmers',
+                website: 'https://pmkisan.gov.in',
+                icon: 'fas fa-hand-holding-usd'
+            },
+            { 
+                name: 'Pradhan Mantri Fasal Bima Yojana', 
+                description: 'Crop insurance scheme for yield loss', 
+                benefit: 'Insurance coverage at low premium', 
+                eligibility: 'All farmers',
+                website: 'https://pmfby.gov.in',
+                icon: 'fas fa-shield-alt'
+            },
+            { 
+                name: 'Soil Health Card Scheme', 
+                description: 'Soil testing and health card distribution', 
+                benefit: 'Free soil testing', 
+                eligibility: 'All farmers',
+                website: 'https://soilhealth.dac.gov.in',
+                icon: 'fas fa-leaf'
+            },
+            { 
+                name: 'Kisan Credit Card (KCC)', 
+                description: 'Credit facility for agricultural needs', 
+                benefit: 'Easy credit up to ₹3 lakh', 
+                eligibility: 'Farmers and landowners',
+                website: 'https://www.kccbank.in',
+                icon: 'fas fa-credit-card'
+            },
+            { 
+                name: 'E-NAM (National Agriculture Market)', 
+                description: 'Online trading platform for agricultural commodities', 
+                benefit: 'Better price discovery', 
+                eligibility: 'Farmers and traders',
+                website: 'https://enam.gov.in',
+                icon: 'fas fa-chart-line'
+            },
+            { 
+                name: 'Pradhan Mantri Krishi Sinchai Yojana', 
+                description: 'Irrigation facilities for farmers', 
+                benefit: 'Subsidized irrigation equipment', 
+                eligibility: 'All farmers',
+                website: 'https://pmksy.gov.in',
+                icon: 'fas fa-tint'
+            },
+            { 
+                name: 'National Mission for Sustainable Agriculture', 
+                description: 'Promotes sustainable farming practices', 
+                benefit: 'Technical and financial support', 
+                eligibility: 'All farmers',
+                website: 'https://nmsa.dac.gov.in',
+                icon: 'fas fa-seedling'
+            },
+            { 
+                name: 'Rashtriya Krishi Vikas Yojana', 
+                description: 'State planning for agriculture development', 
+                benefit: 'Infrastructure support', 
+                eligibility: 'State governments',
+                website: 'https://rkvy.nic.in',
+                icon: 'fas fa-building'
+            }
+        ];
+
+        // Crop yield database for prediction
+        const cropDatabase = {
+            Rice: { base: 4800, optimalTemp: 28, optimalRain: 1500, optimalHumidity: 70 },
+            Wheat: { base: 3600, optimalTemp: 22, optimalRain: 800, optimalHumidity: 60 },
+            Cotton: { base: 2900, optimalTemp: 32, optimalRain: 700, optimalHumidity: 55 },
+            Sugarcane: { base: 6500, optimalTemp: 30, optimalRain: 1200, optimalHumidity: 65 },
+            Millet: { base: 2100, optimalTemp: 35, optimalRain: 500, optimalHumidity: 45 }
+        };
+
+        const soilFactors = {
+            Loamy: 1.0,
+            Sandy: 0.85,
+            Clay: 1.1
+        };
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeMap();
+            initializeCharts();
+            loadSchemes();
+            loadNews();
+            loadShopItems('fertilizers');
+            setupEventListeners();
+            showNotification('AgroSmart Pro is ready! 🌾 Click on any scheme to visit official website', 'success');
+        });
+
+        function setupEventListeners() {
+            document.getElementById('languageSelect').addEventListener('change', handleLanguageChange);
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('navLinks').classList.toggle('active');
+            });
+            
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Prediction function
+        function predictCrop() {
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const rainfall = parseFloat(document.getElementById('rainfall').value);
+            const humidity = parseFloat(document.getElementById('humidity').value);
+            const soilType = document.getElementById('soilType').value;
+            const cropType = document.getElementById('cropType').value;
+            
+            document.getElementById('predictionResult').style.display = 'block';
+            document.getElementById('yieldValue').textContent = '...';
+            document.getElementById('confidenceFill').style.width = '0%';
+            document.getElementById('confidenceValue').textContent = '0%';
+            document.getElementById('recommendationText').textContent = 'Calculating...';
+            
+            setTimeout(() => {
+                const crop = cropDatabase[cropType];
+                const soilFactor = soilFactors[soilType];
+                
+                let tempFactor = 1 - Math.abs(temperature - crop.optimalTemp) / 40;
+                let rainFactor = 1 - Math.abs(rainfall - crop.optimalRain) / 2000;
+                let humidityFactor = 1 - Math.abs(humidity - crop.optimalHumidity) / 60;
+                
+                tempFactor = Math.max(0.5, Math.min(1.3, tempFactor));
+                rainFactor = Math.max(0.5, Math.min(1.3, rainFactor));
+                humidityFactor = Math.max(0.5, Math.min(1.3, humidityFactor));
+                
+                let predictedYield = crop.base * tempFactor * rainFactor * humidityFactor * soilFactor;
+                predictedYield = Math.round(predictedYield);
+                
+                let confidence = (tempFactor + rainFactor + humidityFactor) / 3 * 0.9 + 0.1;
+                confidence = Math.min(0.95, Math.max(0.65, confidence));
+                
+                let recommendation, fertilizerTip, irrigationTip;
+                
+                if (predictedYield < crop.base * 0.7) {
+                    recommendation = "⚠️ Yield potential is low. Consider changing fertilizer strategy or irrigation method.";
+                    fertilizerTip = `🌱 Increase nitrogen-based fertilizer for ${cropType}`;
+                    irrigationTip = "💧 Improve irrigation frequency and consider drip irrigation";
+                } else if (predictedYield < crop.base * 0.9) {
+                    recommendation = "📈 Good yield but room for improvement. Optimize your farming practices.";
+                    fertilizerTip = `⚖️ Balance NPK ratio for better ${cropType} yield`;
+                    irrigationTip = "💦 Maintain consistent soil moisture levels";
+                } else {
+                    recommendation = "🎉 Excellent yield potential! Your farming conditions are optimal.";
+                    fertilizerTip = `✅ Continue current fertilizer schedule for ${cropType}`;
+                    irrigationTip = "👍 Current irrigation strategy is working well. Maintain it.";
+                }
+                
+                document.getElementById('yieldValue').textContent = predictedYield.toLocaleString();
+                document.getElementById('confidenceFill').style.width = `${confidence * 100}%`;
+                document.getElementById('confidenceValue').textContent = `${Math.round(confidence * 100)}%`;
+                document.getElementById('recommendationText').textContent = recommendation;
+                document.getElementById('fertilizerTip').textContent = fertilizerTip;
+                document.getElementById('irrigationTip').textContent = irrigationTip;
+                
+                updateChart(cropType, predictedYield);
+                showNotification('Prediction completed!', 'success');
+            }, 500);
+        }
+
+        function updateChart(cropType, newYield) {
+            if (yieldChart) {
+                const cropIndex = yieldChart.data.labels.indexOf(cropType);
+                if (cropIndex !== -1) {
+                    yieldChart.data.datasets[0].data[cropIndex] = newYield;
+                    yieldChart.update();
+                }
+            }
+        }
+
+        // Initialize Leaflet map
+        function initializeMap() {
+            indiaMap = L.map('indiaMap').setView([20.5937, 78.9629], 5);
+            
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors'
+            }).addTo(indiaMap);
+            
+            const states = [
+                { name: 'Maharashtra', lat: 19.7515, lng: 75.7139, soil: 'Black Soil', temp: 28, humidity: 60 },
+                { name: 'Punjab', lat: 31.1471, lng: 75.3412, soil: 'Alluvial Soil', temp: 24, humidity: 55 },
+                { name: 'Gujarat', lat: 22.2587, lng: 71.1924, soil: 'Sandy Soil', temp: 30, humidity: 50 },
+                { name: 'Uttar Pradesh', lat: 26.8467, lng: 80.9462, soil: 'Loamy Soil', temp: 26, humidity: 65 },
+                { name: 'Karnataka', lat: 15.3173, lng: 75.7139, soil: 'Red Soil', temp: 27, humidity: 62 },
+                { name: 'Rajasthan', lat: 27.0238, lng: 74.2179, soil: 'Sandy Soil', temp: 32, humidity: 45 },
+                { name: 'Tamil Nadu', lat: 11.1271, lng: 78.6569, soil: 'Red Soil', temp: 29, humidity: 70 },
+                { name: 'West Bengal', lat: 22.9868, lng: 87.8550, soil: 'Alluvial Soil', temp: 26, humidity: 75 }
+            ];
+            
+            states.forEach(state => {
+                const marker = L.marker([state.lat, state.lng]).addTo(indiaMap);
+                marker.bindPopup(`
+                    <b>${state.name}</b><br>
+                    🌱 Soil: ${state.soil}<br>
+                    🌡️ Temp: ${state.temp}°C<br>
+                    💧 Humidity: ${state.humidity}%
+                `);
+                
+                marker.on('click', () => {
+                    currentLocation = state;
+                    document.getElementById('selectedLocation').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${state.name}`;
+                    document.getElementById('soilInfo').innerHTML = `<i class="fas fa-globe-asia"></i> Soil: ${state.soil}`;
+                    document.getElementById('tempInfo').innerHTML = `<i class="fas fa-temperature-high"></i> Temp: ${state.temp}°C`;
+                    document.getElementById('humidityInfo').innerHTML = `<i class="fas fa-tint"></i> Humidity: ${state.humidity}%`;
+                    document.getElementById('mapInfo').style.display = 'block';
+                });
+            });
+        }
+
+        function fillFormFromMap() {
+            if (currentLocation) {
+                document.getElementById('temperature').value = currentLocation.temp;
+                document.getElementById('humidity').value = currentLocation.humidity;
+                
+                const soilMap = {
+                    'Black Soil': 'Loamy',
+                    'Alluvial Soil': 'Loamy',
+                    'Sandy Soil': 'Sandy',
+                    'Loamy Soil': 'Loamy',
+                    'Red Soil': 'Clay'
+                };
+                
+                if (soilMap[currentLocation.soil]) {
+                    document.getElementById('soilType').value = soilMap[currentLocation.soil];
+                }
+                
+                document.getElementById('prediction').scrollIntoView({ behavior: 'smooth' });
+                showNotification('Form filled with location data!', 'success');
+            }
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            const yieldCtx = document.getElementById('yieldChart').getContext('2d');
+            const weatherCtx = document.getElementById('weatherChart').getContext('2d');
+            
+            yieldChart = new Chart(yieldCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Rice', 'Wheat', 'Cotton', 'Sugarcane', 'Millet'],
+                    datasets: [{
+                        label: 'Yield (kg/hectare)',
+                        data: [4800, 3600, 2900, 6500, 2100],
+                        backgroundColor: '#2E7D32',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+            
+            weatherChart = new Chart(weatherCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [
+                        {
+                            label: 'Temperature (°C)',
+                            data: [22, 24, 28, 32, 35, 33],
+                            borderColor: '#FDD835',
+                            backgroundColor: 'rgba(253, 216, 53, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Rainfall (mm)',
+                            data: [15, 20, 25, 40, 60, 120],
+                            borderColor: '#2E7D32',
+                            backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: true }
+            });
+        }
+
+        // Load government schemes with clickable links
+        function loadSchemes() {
+            const grid = document.getElementById('schemesGrid');
+            grid.innerHTML = governmentSchemes.map(scheme => `
+                <div class="scheme-card" onclick="openSchemeWebsite('${scheme.website}', '${scheme.name}')">
+                    <h4>
+                        <i class="${scheme.icon}"></i> ${scheme.name}
+                        <i class="fas fa-external-link-alt external-icon"></i>
+                    </h4>
+                    <p>${scheme.description}</p>
+                    <div class="benefit">💰 ${scheme.benefit}</div>
+                    <small>✅ Eligibility: ${scheme.eligibility}</small>
+                </div>
+            `).join('');
+        }
+
+        // Open scheme website in new tab
+        function openSchemeWebsite(url, schemeName) {
+            window.open(url, '_blank');
+            showNotification(`Opening ${schemeName} official website...`, 'success');
+        }
+
+        function filterSchemes() {
+            const searchTerm = document.getElementById('schemeSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.scheme-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                card.style.display = title.includes(searchTerm) || desc.includes(searchTerm) ? 'block' : 'none';
+            });
+        }
+
+        // Load news
+        function loadNews() {
+            const news = [
+                { title: 'Government announces MSP hike for Rabi crops', summary: 'Minimum Support Price increased for wheat, mustard, and gram by 5-8%', source: 'Ministry of Agriculture', date: '2024-01-15', category: 'Policy' },
+                { title: 'New drought-resistant wheat variety developed', summary: 'ICAR scientists develop variety requiring 30% less water', source: 'ICAR News', date: '2024-01-14', category: 'Technology' },
+                { title: 'Organic farming subsidies increased by 25%', summary: 'Government boosts support for chemical-free agriculture', source: 'Agricultural Ministry', date: '2024-01-13', category: 'Policy' },
+                { title: 'AI-powered pest detection app launched', summary: 'Mobile app uses computer vision to identify crop diseases', source: 'Digital India', date: '2024-01-12', category: 'Technology' }
+            ];
+            
+            const grid = document.getElementById('newsGrid');
+            grid.innerHTML = news.map(item => `
+                <div class="news-card">
+                    <div class="category-tag">${item.category}</div>
+                    <h4>${item.title}</h4>
+                    <p>${item.summary}</p>
+                    <div class="date">📅 ${item.date} | Source: ${item.source}</div>
+                </div>
+            `).join('');
+        }
+
+        // Load shop items
+        function loadShopItems(category) {
+            currentShopCategory = category;
+            const items = {
+                fertilizers: [
+                    { name: 'NPK 20:20:20 Fertilizer', price: '₹450/kg', image: 'https://images.unsplash.com/photo-1585325701956-60dd9c6c1e1c?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' },
+                    { name: 'Organic Compost', price: '₹300/kg', image: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' },
+                    { name: 'Urea Fertilizer', price: '₹280/kg', image: 'https://images.unsplash.com/photo-1585325701956-60dd9c6c1e1c?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' }
+                ],
+                tools: [
+                    { name: 'Hand Tractor', price: '₹25,000', image: 'https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' },
+                    { name: 'Pruning Shears', price: '₹450', image: 'https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' },
+                    { name: 'Water Sprinkler', price: '₹1,200', image: 'https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' }
+                ],
+                seeds: [
+                    { name: 'Hybrid Rice Seeds', price: '₹650/kg', image: 'https://images.unsplash.com/photo-1585325701956-60dd9c6c1e1c?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' },
+                    { name: 'Wheat Seeds (HD-2967)', price: '₹550/kg', image: 'https://images.unsplash.com/photo-1585325701956-60dd9c6c1e1c?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' },
+                    { name: 'Vegetable Seeds Pack', price: '₹299', image: 'https://images.unsplash.com/photo-1585325701956-60dd9c6c1e1c?w=150&h=150&fit=crop', amazon_link: 'https://amazon.in' }
+                ]
+            };
+            
+            const grid = document.getElementById('shopGrid');
+            grid.innerHTML = items[category].map(item => `
+                <div class="shop-item">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="shop-item-content">
+                        <h4>${item.name}</h4>
+                        <p class="price">${item.price}</p>
+                        <button class="buy-btn" onclick="window.open('${item.amazon_link}', '_blank')">
+                            Buy Now on Amazon <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showShopCategory(category) {
+            const btns = document.querySelectorAll('.category-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadShopItems(category);
+        }
+
+        // Chat functionality
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            addChatMessage(message, 'user');
+            input.value = '';
+            
+            setTimeout(() => {
+                let response = getChatResponse(message.toLowerCase());
+                addChatMessage(response, 'bot');
+            }, 500);
+        }
+
+        function getChatResponse(message) {
+            if (message.includes('fertilizer') || message.includes('fertilizer')) {
+                return "🌱 For better yield, use balanced NPK fertilizers (10:10:10). Consider soil testing first. Organic compost also improves soil health!";
+            } else if (message.includes('pest') || message.includes('insect')) {
+                return "🐞 Monitor crops regularly. Use neem oil for organic pest control. For severe cases, consult your local agricultural officer.";
+            } else if (message.includes('irrigation') || message.includes('water')) {
+                return "💧 Drip irrigation saves up to 50% water. Water early morning or evening to reduce evaporation. Maintain consistent moisture for best results.";
+            } else if (message.includes('crop')) {
+                return "🌾 Choose crops based on your soil type and climate. Rice grows best in clay soil with high rainfall. Wheat prefers loamy soil with moderate rainfall.";
+            } else if (message.includes('price') || message.includes('market')) {
+                return "💰 Check mandi rates on e-NAM portal (enam.gov.in). Prices vary by season, quality, and location. Consider storage for better prices.";
+            } else if (message.includes('subsidy') || message.includes('scheme')) {
+                return "📋 Visit your local agriculture department for subsidy schemes. PM-KISAN provides ₹6000/year, and KCC offers easy credit up to ₹3 lakh. Click on any scheme card to visit official website!";
+            } else if (message.includes('weather')) {
+                return "☁️ Check local weather forecasts for rainfall and temperature. Plan sowing and harvesting based on weather predictions.";
+            } else {
+                return "🤖 I understand agriculture queries! Ask me about: 🌱 Fertilizers, 🐛 Pests, 💧 Irrigation, 🌾 Crops, 💰 Prices, 📋 Subsidies, or ☁️ Weather!";
+            }
+        }
+
+        function addChatMessage(text, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            const icon = sender === 'bot' ? '<i class="fas fa-robot"></i>' : '';
+            messageDiv.innerHTML = `<div class="message-content">${icon}<p>${text}</p></div>`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') sendChatMessage();
+        }
+
+        // Language handling
+        function handleLanguageChange() {
+            const lang = document.getElementById('languageSelect').value;
+            const translations = {
+                'en': { hero_title: 'Smart Agriculture for Modern Farmers' },
+                'hi': { hero_title: 'आधुनिक किसानों के लिए स्मार्ट कृषि' },
+                'gu': { hero_title: 'આધુનિક ખેડૂતો માટે સ્માર્ટ એગ્રીકલ્ચર' }
+            };
+            if (translations[lang]) {
+                document.querySelector('.hero-content h1').innerHTML = translations[lang].hero_title + '<br><span>Modern Farmers</span>';
+            }
+            showNotification(`Language changed to ${lang.toUpperCase()}`, 'success');
+        }
+
+        // Utility functions
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${message}`;
+            notification.style.background = type === 'success' ? '#2E7D32' : '#2196F3';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function scrollToPrediction() { 
+            document.getElementById('prediction').scrollIntoView({ behavior: 'smooth' }); 
+        }
+
+        function scrollToAssistant() { 
+            document.getElementById('assistant').scrollIntoView({ behavior: 'smooth' }); 
+        }
+    </script>
+</body>
+</html>
