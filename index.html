@@ -137,13 +137,21 @@
             color: var(--primary-green);
         }
 
-        /* Hero Section */
+        /* Hero Section with Image */
         .hero {
             background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 70%, var(--gold) 100%);
             padding: 140px 2rem 80px;
-            text-align: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .hero-content h1 {
@@ -163,7 +171,7 @@
         .hero-content p {
             font-size: 1.2rem;
             max-width: 600px;
-            margin: 0 auto 2rem;
+            margin: 0 0 2rem;
             color: #555;
         }
 
@@ -175,8 +183,69 @@
         .hero-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
+        }
+
+        .hero-image {
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+            transition: transform 0.3s;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Real Time Info Cards */
+        .realtime-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .info-card i {
+            font-size: 2rem;
+            color: var(--primary-green);
+        }
+
+        .info-card .info-content {
+            text-align: left;
+        }
+
+        .info-card .label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .info-card .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
         }
 
         .btn-primary, .btn-secondary {
@@ -211,24 +280,6 @@
         .btn-secondary:hover {
             transform: translateY(-3px);
             background: var(--dark-gold);
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            margin-top: 4rem;
-        }
-
-        .stat h3 {
-            font-size: 2.5rem;
-            color: var(--primary-green);
-            font-weight: 700;
-        }
-
-        .stat p {
-            font-size: 0.9rem;
-            color: #666;
         }
 
         /* Sections */
@@ -853,6 +904,20 @@
                 display: block;
             }
             
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .hero-content p {
+                margin: 0 auto 2rem;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
             .hero-content h1 {
                 font-size: 2rem;
             }
@@ -869,13 +934,20 @@
                 grid-template-columns: 1fr;
             }
             
-            .hero-stats {
-                gap: 2rem;
-                flex-wrap: wrap;
-            }
-            
             .section {
                 padding: 2rem 1rem;
+            }
+            
+            .realtime-info {
+                gap: 1rem;
+            }
+            
+            .info-card {
+                padding: 0.5rem 1rem;
+            }
+            
+            .info-card .value {
+                font-size: 1rem;
             }
         }
     </style>
@@ -910,32 +982,48 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Image and Real Time Info -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Smart Agriculture for<br><span>Modern Farmers</span></h1>
-            <p>AI-powered insights, real-time weather, and expert recommendations to maximize your crop yield</p>
-            <div class="hero-buttons">
-                <button class="btn-primary" onclick="scrollToPrediction()">
-                    <i class="fas fa-chart-line"></i> Start Predicting
-                </button>
-                <button class="btn-secondary" onclick="scrollToAssistant()">
-                    <i class="fas fa-robot"></i> Ask AI Assistant
-                </button>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h1>Smart Agriculture for<br><span>Modern Farmers</span></h1>
+                <p>AI-powered insights, real-time weather, and expert recommendations to maximize your crop yield</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToPrediction()">
+                        <i class="fas fa-chart-line"></i> Start Predicting
+                    </button>
+                    <button class="btn-secondary" onclick="scrollToAssistant()">
+                        <i class="fas fa-robot"></i> Ask AI Assistant
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=400&fit=crop" alt="Modern Farming">
             </div>
         </div>
-        <div class="hero-stats">
-            <div class="stat">
-                <h3>10K+</h3>
-                <p>Farmers Trust Us</p>
+        
+        <!-- Real Time Information Cards -->
+        <div class="realtime-info">
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <div class="info-content">
+                    <div class="label">Current Time</div>
+                    <div class="value" id="currentTime">--:--:--</div>
+                </div>
             </div>
-            <div class="stat">
-                <h3>25%</h3>
-                <p>Avg Yield Increase</p>
+            <div class="info-card">
+                <i class="fas fa-temperature-high"></i>
+                <div class="info-content">
+                    <div class="label">Temperature</div>
+                    <div class="value" id="currentTemp">--°C</div>
+                </div>
             </div>
-            <div class="stat">
-                <h3>15+</h3>
-                <p>States Covered</p>
+            <div class="info-card">
+                <i class="fas fa-tint"></i>
+                <div class="info-content">
+                    <div class="label">Humidity</div>
+                    <div class="value" id="currentHumidity">--%</div>
+                </div>
             </div>
         </div>
     </section>
@@ -1193,6 +1281,45 @@
         let currentLocation = null;
         let currentShopCategory = 'fertilizers';
 
+        // Real time clock and weather update function
+        function updateRealTimeInfo() {
+            // Update clock
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-IN', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: true 
+            });
+            document.getElementById('currentTime').textContent = timeString;
+            
+            // Simulate real-time temperature (between 22°C to 38°C based on time of day)
+            const hour = now.getHours();
+            let simulatedTemp;
+            if (hour >= 6 && hour <= 18) {
+                // Day time - warmer
+                simulatedTemp = Math.round(28 + Math.sin((hour - 12) * Math.PI / 12) * 10);
+            } else {
+                // Night time - cooler
+                simulatedTemp = Math.round(22 + Math.sin((hour - 0) * Math.PI / 12) * 5);
+            }
+            simulatedTemp = Math.max(20, Math.min(40, simulatedTemp));
+            document.getElementById('currentTemp').textContent = `${simulatedTemp}°C`;
+            
+            // Simulate real-time humidity (40% to 85% based on time)
+            let simulatedHumidity;
+            if (hour >= 6 && hour <= 18) {
+                simulatedHumidity = Math.round(45 + Math.sin((hour - 12) * Math.PI / 12) * 20);
+            } else {
+                simulatedHumidity = Math.round(65 + Math.sin((hour - 0) * Math.PI / 12) * 15);
+            }
+            simulatedHumidity = Math.max(40, Math.min(85, simulatedHumidity));
+            document.getElementById('currentHumidity').textContent = `${simulatedHumidity}%`;
+        }
+        
+        // Update every second
+        setInterval(updateRealTimeInfo, 1000);
+        
         // Government Schemes with official website links
         const governmentSchemes = [
             { 
@@ -1278,6 +1405,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
+            updateRealTimeInfo();
             initializeMap();
             initializeCharts();
             loadSchemes();
