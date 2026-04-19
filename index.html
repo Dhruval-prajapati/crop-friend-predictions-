@@ -19,7 +19,6 @@
             --gold: #FDD835; --dark-gold: #F9A825; --white: #FFFFFF; --dark: #1B1B1B;
             --gray: #F5F5F5; --shadow: 0 4px 20px rgba(0,0,0,0.08); --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
         }
-        /* Sidebar */
         .sidebar {
             position: fixed; left: 0; top: 0; width: 280px; height: 100vh;
             background: linear-gradient(180deg, var(--primary-green) 0%, var(--secondary-green) 100%);
@@ -34,27 +33,28 @@
             color: white; text-decoration: none; transition: all 0.3s; font-weight: 500;
             border-left: 3px solid transparent;
         }
-        .sidebar-nav a:hover, .sidebar-nav a.active {
-            background: rgba(255,255,255,0.15); border-left-color: var(--gold); padding-left: 2rem;
-        }
+        .sidebar-nav a:hover, .sidebar-nav a.active { background: rgba(255,255,255,0.15); border-left-color: var(--gold); padding-left: 2rem; }
         .language-selector-sidebar { padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 2rem; }
         .language-selector-sidebar select { width: 100%; padding: 0.5rem 1rem; border-radius: 25px; background: rgba(255,255,255,0.9); border: none; font-family: 'Poppins', sans-serif; cursor: pointer; }
         .main-content { margin-left: 280px; width: calc(100% - 280px); }
         .mobile-menu-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1001; background: var(--primary-green); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 1.2rem; }
-        /* Hero */
-        .hero { background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 70%, var(--gold) 100%); padding: 80px 3rem 60px; }
-        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; }
-        .hero-content h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
-        .hero-content h1 span { background: linear-gradient(135deg, var(--primary-green), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .hero-image img { width: 100%; max-width: 450px; border-radius: 20px; box-shadow: var(--shadow-hover); }
+        
+        .hero { background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 70%, var(--gold) 100%); padding: 100px 3rem 60px; text-align: center; }
+        .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
+        .hero h1 span { background: linear-gradient(135deg, var(--primary-green), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; color: #555; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .hero-image { margin-top: 2rem; }
+        .hero-image img { width: 100%; max-width: 500px; border-radius: 20px; box-shadow: var(--shadow-hover); margin: 0 auto; }
         .realtime-info { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
         .info-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px; display: flex; align-items: center; gap: 1rem; box-shadow: var(--shadow); }
         .info-card i { font-size: 1.5rem; color: var(--primary-green); }
+        
         .btn-primary, .btn-secondary { padding: 0.7rem 1.5rem; border: none; border-radius: 50px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; }
         .btn-primary { background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(46,125,50,0.4); }
         .btn-secondary { background: var(--gold); color: var(--dark); }
+        
         .section { padding: 4rem 3rem; }
         .container { max-width: 1200px; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 2.5rem; }
@@ -63,6 +63,7 @@
         .gray-bg { background: var(--gray); }
         .card { background: var(--white); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow); transition: all 0.3s; }
         .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        
         .prediction-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
         .form-group { margin-bottom: 1rem; }
         .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem; }
@@ -73,14 +74,19 @@
         .progress-fill { background: linear-gradient(90deg, var(--gold), var(--dark-gold)); height: 100%; transition: width 0.5s; }
         .recommendation-box { background: var(--light-green); padding: 1rem; border-radius: 12px; margin-top: 1rem; }
         .tip { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; padding: 0.5rem; background: var(--white); border-radius: 8px; font-size: 0.85rem; }
-        .map-container { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-        .map-controls { position: absolute; top: 10px; right: 10px; z-index: 1000; display: flex; gap: 8px; }
-        .map-controls button { background: var(--white); color: var(--primary-green); border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 500; box-shadow: var(--shadow); }
+        
+        .map-container { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); width: 100%; }
+        .map-controls { position: absolute; top: 10px; right: 10px; z-index: 1000; display: flex; gap: 8px; flex-wrap: wrap; }
+        .map-controls button { background: var(--white); color: var(--primary-green); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600; box-shadow: var(--shadow); }
+        .map-controls button:hover { background: var(--primary-green); color: white; }
+        #indiaMap { height: 450px; width: 100%; border-radius: 16px; z-index: 1; }
         .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin: 1rem 0; }
         .info-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--light-green); border-radius: 8px; font-size: 0.85rem; }
         .btn-small { background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white; border: none; padding: 0.5rem; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 500; }
+        
         .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; }
         canvas { max-height: 250px; }
+        
         .chat-container { max-width: 700px; margin: 0 auto; padding: 0; overflow: hidden; }
         .chat-messages { height: 350px; overflow-y: auto; padding: 1rem; background: var(--light-green); }
         .message { margin-bottom: 0.8rem; display: flex; }
@@ -92,6 +98,7 @@
         .chat-input-area { display: flex; padding: 1rem; border-top: 1px solid #e0e0e0; background: var(--white); }
         .chat-input-area input { flex: 1; padding: 0.6rem; border: 1px solid #ddd; border-radius: 25px; margin-right: 0.5rem; }
         .chat-input-area button { background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 25px; cursor: pointer; }
+        
         .schemes-filter { margin-bottom: 1.5rem; max-width: 350px; margin-left: auto; margin-right: auto; }
         .schemes-filter input { width: 100%; padding: 0.6rem 1rem; border: 1px solid #ddd; border-radius: 50px; }
         .schemes-grid, .news-grid, .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
@@ -100,29 +107,43 @@
         .scheme-card h4 { color: var(--primary-green); display: flex; justify-content: space-between; }
         .scheme-card .benefit { background: linear-gradient(135deg, var(--gold), var(--dark-gold)); padding: 0.2rem 0.6rem; border-radius: 20px; display: inline-block; margin: 0.5rem 0; font-size: 0.75rem; font-weight: 600; }
         .news-card .category-tag { display: inline-block; background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; margin-bottom: 0.5rem; }
-        .shop-categories { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .category-btn { padding: 0.4rem 1.2rem; border: 2px solid var(--primary-green); background: transparent; color: var(--primary-green); border-radius: 50px; cursor: pointer; font-weight: 500; font-size: 0.85rem; }
+        
+        .shop-categories { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .category-btn { padding: 0.5rem 1.5rem; border: 2px solid var(--primary-green); background: transparent; color: var(--primary-green); border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; }
         .category-btn.active, .category-btn:hover { background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white; }
-        .shop-item img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 0.8rem; }
-        .shop-item .price { color: var(--primary-green); font-weight: 700; font-size: 1.1rem; }
-        .shop-item .rating { color: var(--gold); margin-bottom: 0.5rem; font-size: 0.8rem; }
-        .buy-btn { background: linear-gradient(135deg, var(--gold), var(--dark-gold)); color: var(--dark); border: none; padding: 0.5rem; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .shop-item { transition: all 0.3s; background: white; border-radius: 16px; overflow: hidden; }
+        .shop-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        /* Removed img styling - no images anymore */
+        .shop-item-content { padding: 1rem; }
+        .shop-item h4 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--dark); }
+        .shop-item .price { color: var(--primary-green); font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; }
+        .shop-item .rating { color: var(--gold); margin-bottom: 0.5rem; font-size: 0.9rem; letter-spacing: 2px; }
+        .shop-item .description { font-size: 0.8rem; color: #666; margin-bottom: 1rem; line-height: 1.4; }
+        .buy-btn { background: linear-gradient(135deg, var(--gold), var(--dark-gold)); color: var(--dark); border: none; padding: 0.7rem; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; }
+        .buy-btn:hover { transform: scale(1.02); background: var(--dark-gold); }
+        
         footer { background: linear-gradient(135deg, #1B1B1B, #2d2d2d); color: white; padding: 2rem 3rem 1rem; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
         .footer-section h4 { margin-bottom: 0.8rem; color: var(--gold); }
         .footer-section a, .footer-section p { color: #ccc; text-decoration: none; display: block; margin-bottom: 0.3rem; font-size: 0.85rem; }
+        .footer-section a:hover { color: var(--gold); }
         .footer-bottom { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #444; font-size: 0.8rem; }
+        
         .notification { position: fixed; top: 20px; right: 20px; background: var(--primary-green); color: white; padding: 0.8rem 1.2rem; border-radius: 10px; z-index: 10000; animation: slideIn 0.3s ease; font-size: 0.85rem; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); width: 260px; }
             .sidebar.active { transform: translateX(0); }
             .main-content { margin-left: 0; width: 100%; }
             .mobile-menu-toggle { display: block; }
-            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 2rem; }
             .prediction-grid { grid-template-columns: 1fr; }
             .section { padding: 2rem 1rem; }
             .hero { padding: 70px 1rem 40px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .map-controls { top: 5px; right: 5px; }
+            .map-controls button { padding: 4px 8px; font-size: 9px; }
         }
     </style>
 </head>
@@ -145,16 +166,20 @@
     </div>
     <div class="main-content">
         <section id="home" class="hero">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <h1>Smart Agriculture for<br><span>Modern Farmers</span></h1>
-                    <p>AI-powered insights, real-time weather, and expert recommendations</p>
-                    <div class="hero-buttons"><button class="btn-primary" onclick="scrollToPrediction()"><i class="fas fa-chart-line"></i> Start Predicting</button><button class="btn-secondary" onclick="scrollToAssistant()"><i class="fas fa-robot"></i> Ask AI Assistant</button></div>
-                </div>
-                <div class="hero-image"><img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500&h=350&fit=crop" alt="Modern Farming"></div>
+            <h1>Smart Agriculture for<br><span>Modern Farmers</span></h1>
+            <p>AI-powered insights, real-time weather, and expert recommendations to maximize your crop yield</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToPrediction()"><i class="fas fa-chart-line"></i> Start Predicting</button>
+                <button class="btn-secondary" onclick="scrollToAssistant()"><i class="fas fa-robot"></i> Ask AI Assistant</button>
             </div>
-            <div class="realtime-info"><div class="info-card"><i class="fas fa-clock"></i><span id="currentTime">--:--:--</span></div><div class="info-card"><i class="fas fa-temperature-high"></i><span id="currentTemp">--°C</span></div><div class="info-card"><i class="fas fa-tint"></i><span id="currentHumidity">--%</span></div></div>
+            <div class="hero-image"><img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500&h=350&fit=crop" alt="Modern Farming"></div>
+            <div class="realtime-info">
+                <div class="info-card"><i class="fas fa-clock"></i><span id="currentTime">--:--:--</span></div>
+                <div class="info-card"><i class="fas fa-temperature-high"></i><span id="currentTemp">--°C</span></div>
+                <div class="info-card"><i class="fas fa-tint"></i><span id="currentHumidity">--%</span></div>
+            </div>
         </section>
+
         <section id="prediction" class="section">
             <div class="container">
                 <div class="section-header"><h2><i class="fas fa-brain"></i> Smart Crop Prediction</h2><p>AI-powered yield prediction based on your farm conditions</p></div>
@@ -177,33 +202,51 @@
                 </div>
             </div>
         </section>
+
         <section id="map" class="section gray-bg">
             <div class="container">
-                <div class="section-header"><h2><i class="fas fa-map-marked-alt"></i> Live Satellite Farm Map</h2><p>Click on any location for weather and soil details</p></div>
-                <div class="map-container"><div class="map-controls"><button onclick="toggleSatellite()">🛰️ Satellite</button><button onclick="toggleStreet()">🗺️ Street</button><button onclick="resetMap()">📍 Reset</button></div><div id="indiaMap" style="height: 450px; border-radius: 16px;"></div></div>
+                <div class="section-header"><h2><i class="fas fa-map-marked-alt"></i> India Satellite Farm Map</h2><p>Click on any location for weather and soil details</p></div>
+                <div class="map-container">
+                    <div class="map-controls">
+                        <button onclick="toggleSatellite()">🛰️ Satellite</button>
+                        <button onclick="toggleStreet()">🗺️ Street</button>
+                        <button onclick="resetMap()">📍 Reset View</button>
+                        <button onclick="getUserLocation()">📍 My Location</button>
+                    </div>
+                    <div id="indiaMap" style="height: 450px; width: 100%; border-radius: 16px;"></div>
+                </div>
                 <div class="card" id="mapInfo" style="display:none; margin-top:1rem">
                     <h4 id="selectedLocation"><i class="fas fa-map-marker-alt"></i> Location Details</h4>
-                    <div class="info-grid"><div class="info-item"><i class="fas fa-tachometer-alt"></i><span id="soilInfo">Soil: --</span></div><div class="info-item"><i class="fas fa-temperature-high"></i><span id="tempInfo">Temp: --°C</span></div><div class="info-item"><i class="fas fa-tint"></i><span id="humidityInfo">Humidity: --%</span></div></div>
-                    <div class="info-grid"><div class="info-item"><i class="fas fa-cloud-rain"></i><span id="rainfallInfo">Rainfall: -- mm</span></div><div class="info-item"><i class="fas fa-wind"></i><span id="windInfo">Wind: -- km/h</span></div><div class="info-item"><i class="fas fa-seedling"></i><span id="cropInfo">Crops: --</span></div></div>
+                    <div class="info-grid">
+                        <div class="info-item"><i class="fas fa-tachometer-alt"></i><span id="soilInfo">Soil: --</span></div>
+                        <div class="info-item"><i class="fas fa-temperature-high"></i><span id="tempInfo">Temp: --°C</span></div>
+                        <div class="info-item"><i class="fas fa-tint"></i><span id="humidityInfo">Humidity: --%</span></div>
+                        <div class="info-item"><i class="fas fa-cloud-rain"></i><span id="rainfallInfo">Rainfall: -- mm</span></div>
+                        <div class="info-item"><i class="fas fa-wind"></i><span id="windInfo">Wind: -- km/h</span></div>
+                        <div class="info-item"><i class="fas fa-seedling"></i><span id="cropInfo">Crops: --</span></div>
+                    </div>
                     <button class="btn-small" onclick="fillFormFromMap()"><i class="fas fa-arrow-right"></i> Use for Prediction</button>
                 </div>
             </div>
         </section>
+
         <section id="analytics" class="section">
             <div class="container">
                 <div class="section-header"><h2><i class="fas fa-chart-bar"></i> Yield Analytics Dashboard</h2><p>Visualize trends and make data-driven decisions</p></div>
                 <div class="analytics-grid"><div class="card"><h3>Crop Yield Comparison</h3><canvas id="yieldChart"></canvas></div><div class="card"><h3>Weather Impact Analysis</h3><canvas id="weatherChart"></canvas></div></div>
             </div>
         </section>
+
         <section id="assistant" class="section gray-bg">
             <div class="container">
                 <div class="section-header"><h2><i class="fas fa-robot"></i> AI Agriculture Assistant</h2><p>Get instant answers to your farming questions</p></div>
                 <div class="chat-container card">
-                    <div class="chat-messages" id="chatMessages"><div class="message bot"><div class="message-content"><i class="fas fa-robot"></i><p>Namaste! Ask me about crops, fertilizers, pests, irrigation, or schemes!</p></div></div></div>
-                    <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="handleChatKeyPress(event)"><button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div>
+                    <div class="chat-messages" id="chatMessages"><div class="message bot"><div class="message-content"><i class="fas fa-robot"></i><p>Namaste! I'm your AI agriculture assistant. Ask me about crops, fertilizers, pests, irrigation, or government schemes!</p></div></div></div>
+                    <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Ask me anything about farming..." onkeypress="handleChatKeyPress(event)"><button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div>
                 </div>
             </div>
         </section>
+
         <section id="schemes" class="section">
             <div class="container">
                 <div class="section-header"><h2><i class="fas fa-gavel"></i> Government Schemes</h2><p>Click on any scheme to visit official website</p></div>
@@ -211,15 +254,18 @@
                 <div class="schemes-grid" id="schemesGrid"></div>
             </div>
         </section>
+
         <section class="section gray-bg">
             <div class="container">
                 <div class="section-header"><h2><i class="fas fa-newspaper"></i> Agriculture News</h2><p>Latest updates from Indian agriculture</p></div>
                 <div class="news-grid" id="newsGrid"></div>
             </div>
         </section>
+
+        <!-- AGRI SHOP SECTION - NO IMAGES, ONLY TEXT -->
         <section id="shop" class="section">
             <div class="container">
-                <div class="section-header"><h2><i class="fas fa-store"></i> Agri Shop</h2><p>Quality products - Click "Buy Now" to purchase on Google Shopping</p></div>
+                <div class="section-header"><h2><i class="fas fa-store"></i> Agri Shop</h2><p>Quality agricultural products - Click "Buy Now" to purchase on Google Shopping</p></div>
                 <div class="shop-categories">
                     <button class="category-btn active" onclick="showCategory('fertilizers')">🌱 Fertilizers</button>
                     <button class="category-btn" onclick="showCategory('tools')">🔧 Tools</button>
@@ -230,17 +276,20 @@
                 <div class="shop-grid" id="shopGrid"></div>
             </div>
         </section>
+
         <footer>
             <div class="footer-content">
                 <div class="footer-section"><h4><i class="fas fa-seedling"></i> AgroSmart Pro</h4><p>Empowering Indian farmers with AI-driven solutions</p></div>
-                <div class="footer-section"><h4>Quick Links</h4><a href="#prediction">Crop Predictor</a><a href="#map">Farm Map</a><a href="#assistant">AI Assistant</a></div>
+                <div class="footer-section"><h4>Quick Links</h4><a href="#prediction">Crop Predictor</a><a href="#map">Farm Map</a><a href="#assistant">AI Assistant</a><a href="#schemes">Schemes</a><a href="#shop">Agri Shop</a></div>
                 <div class="footer-section"><h4>Contact</h4><p><i class="fas fa-envelope"></i> support@agrosmartpro.com</p><p><i class="fas fa-phone"></i> 1800-123-4567</p></div>
             </div>
             <div class="footer-bottom"><p>&copy; 2024 AgroSmart Pro | Making farming smarter, together.</p></div>
         </footer>
     </div>
+
     <script>
         let yieldChart, weatherChart, indiaMap, currentLayer, currentLocation = null;
+        
         function updateTime() {
             let now = new Date();
             document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true });
@@ -249,6 +298,10 @@
             document.getElementById('currentHumidity').textContent = `${Math.round(55 + Math.sin((hour-12)*Math.PI/12)*20)}%`;
         }
         setInterval(updateTime, 1000); updateTime();
+        
+        const indiaBounds = [[6.0, 68.0], [37.0, 97.0]];
+        const indiaCenter = [20.5937, 78.9629];
+        
         const locations = [
             { name: 'New Delhi', lat: 28.6139, lng: 77.2090, soil: 'Alluvial', temp: 26, humidity: 50, rainfall: 700, wind: 10, crops: 'Wheat, Vegetables' },
             { name: 'Mumbai', lat: 19.0760, lng: 72.8777, soil: 'Black', temp: 28, humidity: 75, rainfall: 2200, wind: 18, crops: 'Rice, Mango' },
@@ -261,16 +314,22 @@
             { name: 'Lucknow', lat: 26.8467, lng: 80.9462, soil: 'Loamy', temp: 26, humidity: 65, rainfall: 900, wind: 8, crops: 'Wheat, Sugarcane' },
             { name: 'Hyderabad', lat: 17.3850, lng: 78.4867, soil: 'Red', temp: 29, humidity: 55, rainfall: 800, wind: 12, crops: 'Rice, Cotton' }
         ];
+        
         function initMap() {
-            indiaMap = L.map('indiaMap').setView([20.5937, 78.9629], 5);
-            currentLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Esri', maxZoom: 18 }).addTo(indiaMap);
-            L.control.scale({ metric: true, position: 'bottomleft' }).addTo(indiaMap);
+            indiaMap = L.map('indiaMap').setView(indiaCenter, 5);
+            indiaMap.setMaxBounds(indiaBounds);
+            indiaMap.setMinZoom(4);
+            indiaMap.setMaxZoom(10);
+            currentLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri', maxZoom: 18 }).addTo(indiaMap);
+            L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo(indiaMap);
+            const customIcon = L.divIcon({ html: '<div style="background:#2E7D32;width:14px;height:14px;border-radius:50%;border:2px solid #FDD835;box-shadow:0 1px 3px rgba(0,0,0,0.3);"></div>', iconSize: [18, 18] });
             locations.forEach(loc => {
-                let marker = L.marker([loc.lat, loc.lng], { icon: L.divIcon({ html: '<div style="background:#2E7D32;width:12px;height:12px;border-radius:50%;border:2px solid #FDD835"></div>', iconSize: [16,16] }) }).addTo(indiaMap);
-                marker.bindPopup(`<b>${loc.name}</b><br>Soil: ${loc.soil}<br>Temp: ${loc.temp}°C<br>Humidity: ${loc.humidity}%<br><button onclick="selectLocation('${loc.name}',${loc.temp},${loc.humidity},${loc.rainfall},'${loc.soil}')">Use for Prediction</button>`);
+                let marker = L.marker([loc.lat, loc.lng], { icon: customIcon }).addTo(indiaMap);
+                marker.bindPopup(`<div><b>📍 ${loc.name}</b><br>🌱 Soil: ${loc.soil}<br>🌡️ Temp: ${loc.temp}°C<br>💧 Humidity: ${loc.humidity}%<br><button onclick="selectLocation('${loc.name}',${loc.temp},${loc.humidity},${loc.rainfall},'${loc.soil}')" style="margin-top:8px;background:#2E7D32;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;width:100%;">📊 Use for Prediction</button></div>`, { maxWidth: 250 });
                 marker.on('click', () => { currentLocation = loc; document.getElementById('mapInfo').style.display='block'; document.getElementById('selectedLocation').innerHTML=loc.name; document.getElementById('soilInfo').innerHTML=`Soil: ${loc.soil}`; document.getElementById('tempInfo').innerHTML=`Temp: ${loc.temp}°C`; document.getElementById('humidityInfo').innerHTML=`Humidity: ${loc.humidity}%`; document.getElementById('rainfallInfo').innerHTML=`Rainfall: ${loc.rainfall} mm`; document.getElementById('windInfo').innerHTML=`Wind: ${loc.wind} km/h`; document.getElementById('cropInfo').innerHTML=`Crops: ${loc.crops}`; });
             });
         }
+        
         function selectLocation(name, temp, hum, rain, soil) {
             let soilMap = {'Black':'Loamy','Alluvial':'Loamy','Sandy':'Sandy','Red':'Clay','Loamy':'Loamy'};
             document.getElementById('temperature').value = temp;
@@ -280,12 +339,25 @@
             document.getElementById('prediction').scrollIntoView({ behavior: 'smooth' });
             showNotification(`Data from ${name} filled!`, 'success');
         }
+        
         function toggleSatellite() { indiaMap.removeLayer(currentLayer); currentLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Esri' }).addTo(indiaMap); showNotification('Satellite View', 'success'); }
         function toggleStreet() { indiaMap.removeLayer(currentLayer); currentLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: 'OSM', subdomains: 'abcd' }).addTo(indiaMap); showNotification('Street View', 'success'); }
-        function resetMap() { indiaMap.setView([20.5937, 78.9629], 5); showNotification('Map reset', 'success'); }
-        function fillFormFromMap() { if(currentLocation){ selectLocation(currentLocation.name, currentLocation.temp, currentLocation.humidity, currentLocation.rainfall, currentLocation.soil); } }
+        function resetMap() { indiaMap.setView(indiaCenter, 5); showNotification('Map reset to India', 'success'); }
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => { 
+                    indiaMap.setView([pos.coords.latitude, pos.coords.longitude], 10);
+                    L.marker([pos.coords.latitude, pos.coords.longitude], { icon: L.divIcon({ html: '<div style="background:#FDD835;width:16px;height:16px;border-radius:50%;border:2px solid #2E7D32;"></div>', iconSize: [20,20] }) }).addTo(indiaMap).bindPopup('📍 Your Location').openPopup();
+                    showNotification('Your location found!', 'success');
+                }, () => showNotification('Unable to get location', 'error'));
+            } else showNotification('Geolocation not supported', 'error');
+        }
+        
+        function fillFormFromMap() { if(currentLocation) selectLocation(currentLocation.name, currentLocation.temp, currentLocation.humidity, currentLocation.rainfall, currentLocation.soil); }
+        
         const cropDB = { Rice:{base:4800,optTemp:28,optRain:1500,optHum:70}, Wheat:{base:3600,optTemp:22,optRain:800,optHum:60}, Cotton:{base:2900,optTemp:32,optRain:700,optHum:55}, Sugarcane:{base:6500,optTemp:30,optRain:1200,optHum:65}, Millet:{base:2100,optTemp:35,optRain:500,optHum:45} };
         const soilFactors = { Loamy:1.0, Sandy:0.85, Clay:1.1 };
+        
         function predictCrop() {
             let temp=parseFloat(document.getElementById('temperature').value), rain=parseFloat(document.getElementById('rainfall').value), hum=parseFloat(document.getElementById('humidity').value), soil=document.getElementById('soilType').value, crop=document.getElementById('cropType').value;
             document.getElementById('predictionResult').style.display='block';
@@ -302,64 +374,84 @@
                 showNotification('Prediction completed!','success');
             },300);
         }
+        
         function initCharts() {
-            yieldChart = new Chart(document.getElementById('yieldChart'), { type:'bar', data:{ labels:['Rice','Wheat','Cotton','Sugarcane','Millet'], datasets:[{ label:'Yield (kg/hectare)', data:[4800,3600,2900,6500,2100], backgroundColor:'#2E7D32' }] }, options:{ responsive:true } });
-            weatherChart = new Chart(document.getElementById('weatherChart'), { type:'line', data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ label:'Temperature (°C)', data:[22,24,28,32,35,33], borderColor:'#FDD835', fill:true },{ label:'Rainfall (mm)', data:[15,20,25,40,60,120], borderColor:'#2E7D32', fill:true }] }, options:{ responsive:true } });
+            yieldChart = new Chart(document.getElementById('yieldChart'), { type:'bar', data:{ labels:['Rice','Wheat','Cotton','Sugarcane','Millet'], datasets:[{ label:'Yield (kg/hectare)', data:[4800,3600,2900,6500,2100], backgroundColor:'#2E7D32', borderRadius:8 }] }, options:{ responsive:true } });
+            weatherChart = new Chart(document.getElementById('weatherChart'), { type:'line', data:{ labels:['Jan','Feb','Mar','Apr','May','Jun'], datasets:[{ label:'Temperature (°C)', data:[22,24,28,32,35,33], borderColor:'#FDD835', fill:true, tension:0.4 },{ label:'Rainfall (mm)', data:[15,20,25,40,60,120], borderColor:'#2E7D32', fill:true, tension:0.4 }] }, options:{ responsive:true } });
         }
+        
         const schemes = [{ name:'PM-KISAN Samman Nidhi', desc:'Income support ₹6000/year', benefit:'₹6000/year', eligibility:'Small farmers', website:'https://pmkisan.gov.in', icon:'fas fa-hand-holding-usd' },{ name:'PM Fasal Bima Yojana', desc:'Crop insurance', benefit:'Low premium', eligibility:'All farmers', website:'https://pmfby.gov.in', icon:'fas fa-shield-alt' },{ name:'Soil Health Card', desc:'Free soil testing', benefit:'Free testing', eligibility:'All farmers', website:'https://soilhealth.dac.gov.in', icon:'fas fa-leaf' },{ name:'Kisan Credit Card', desc:'Credit up to ₹3 lakh', benefit:'Easy credit', eligibility:'Farmers', website:'https://www.kccbank.in', icon:'fas fa-credit-card' },{ name:'E-NAM', desc:'Online trading platform', benefit:'Better prices', eligibility:'Farmers', website:'https://enam.gov.in', icon:'fas fa-chart-line' }];
+        
         function loadSchemes() { document.getElementById('schemesGrid').innerHTML = schemes.map(s => `<div class="scheme-card" onclick="window.open('${s.website}','_blank')"><h4><i class="${s.icon}"></i> ${s.name}<i class="fas fa-external-link-alt"></i></h4><p>${s.desc}</p><div class="benefit">💰 ${s.benefit}</div><small>✅ ${s.eligibility}</small></div>`).join(''); }
         function filterSchemes() { let term=document.getElementById('schemeSearch').value.toLowerCase(); document.querySelectorAll('.scheme-card').forEach(c=>c.style.display=c.textContent.toLowerCase().includes(term)?'block':'none'); }
-        function loadNews() { document.getElementById('newsGrid').innerHTML = [{ title:'MSP hike for Rabi crops', category:'Policy', date:'2024-01-15', source:'AgriMin', summary:'5-8% MSP increase' },{ title:'Drought-resistant wheat', category:'Technology', date:'2024-01-14', source:'ICAR', summary:'30% less water' }].map(n=>`<div class="news-card"><div class="category-tag">${n.category}</div><h4>${n.title}</h4><p>${n.summary}</p><div class="date">📅 ${n.date} | ${n.source}</div></div>`).join(''); }
+        
+        function loadNews() { document.getElementById('newsGrid').innerHTML = [{ title:'MSP hike for Rabi crops', category:'Policy', date:'2024-01-15', source:'AgriMin', summary:'5-8% MSP increase for wheat, mustard' },{ title:'Drought-resistant wheat developed', category:'Technology', date:'2024-01-14', source:'ICAR', summary:'30% less water required' },{ title:'Organic farming subsidies increased', category:'Policy', date:'2024-01-13', source:'Govt', summary:'25% increase in subsidy' }].map(n=>`<div class="news-card"><div class="category-tag">${n.category}</div><h4>${n.title}</h4><p>${n.summary}</p><div class="date">📅 ${n.date} | ${n.source}</div></div>`).join(''); }
+        
+        // PRODUCTS - NO IMAGES, ONLY TEXT
         const products = {
             fertilizers: [
-                { name:'NPK 20:20:20 Fertilizer', price:'₹450/kg', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61pYkR2kXxL._SL1000_.jpg', link:'https://www.google.com/search?q=npk+20+20+20+fertilizer+buy+online' },
-                { name:'Organic Compost', price:'₹300/kg', rating:'★★★★★', image:'https://m.media-amazon.com/images/I/71qXxXxXxXL._SL1500_.jpg', link:'https://www.google.com/search?q=organic+compost+buy+online' },
-                { name:'Urea Fertilizer', price:'₹280/kg', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=urea+fertilizer+buy+online' },
-                { name:'DAP Fertilizer', price:'₹350/kg', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/71XxXxXxXxL._SL1500_.jpg', link:'https://www.google.com/search?q=dap+fertilizer+buy+online' },
-                { name:'Potash Fertilizer', price:'₹400/kg', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=potash+fertilizer+buy+online' }
+                { name:'🌱 NPK 20:20:20 Fertilizer', price:'₹450/kg', rating:'★★★★☆', link:'https://www.google.com/search?q=npk+20+20+20+fertilizer+buy+online', desc:'Balanced fertilizer for all crops' },
+                { name:'🌿 Organic Compost', price:'₹300/kg', rating:'★★★★★', link:'https://www.google.com/search?q=organic+compost+buy+online', desc:'100% organic, chemical-free' },
+                { name:'💎 Urea Fertilizer', price:'₹280/kg', rating:'★★★★☆', link:'https://www.google.com/search?q=urea+fertilizer+buy+online', desc:'High nitrogen content' },
+                { name:'⚡ DAP Fertilizer', price:'₹350/kg', rating:'★★★★☆', link:'https://www.google.com/search?q=dap+fertilizer+buy+online', desc:'Phosphorus rich fertilizer' }
             ],
             tools: [
-                { name:'Hand Tractor', price:'₹24,999', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=hand+tractor+buy+online' },
-                { name:'Pruning Shears', price:'₹449', rating:'★★★★★', image:'https://m.media-amazon.com/images/I/61VJxYyVZYL._SL1500_.jpg', link:'https://www.google.com/search?q=pruning+shears+buy+online' },
-                { name:'Water Sprinkler', price:'₹1,199', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/71yRlZGgBeL._SL1500_.jpg', link:'https://www.google.com/search?q=garden+sprinkler+buy+online' },
-                { name:'Garden Hoe', price:'₹349', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/71KPQtn2RLL._SL1500_.jpg', link:'https://www.google.com/search?q=garden+hoe+buy+online' },
-                { name:'Weeding Tool', price:'₹299', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=weeding+tool+buy+online' }
+                { name:'🚜 Hand Tractor', price:'₹24,999', rating:'★★★★☆', link:'https://www.google.com/search?q=hand+tractor+buy+online', desc:'Manual farming tool for small farms' },
+                { name:'✂️ Pruning Shears', price:'₹449', rating:'★★★★★', link:'https://www.google.com/search?q=pruning+shears+buy+online', desc:'Sharp stainless steel blade' },
+                { name:'💧 Water Sprinkler', price:'₹1,199', rating:'★★★★☆', link:'https://www.google.com/search?q=garden+sprinkler+buy+online', desc:'360° rotation coverage' },
+                { name:'⛏️ Garden Hoe', price:'₹349', rating:'★★★★☆', link:'https://www.google.com/search?q=garden+hoe+buy+online', desc:'Heavy duty farm tool' }
             ],
             seeds: [
-                { name:'Hybrid Rice Seeds', price:'₹650/kg', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=hybrid+rice+seeds+buy+online' },
-                { name:'Wheat Seeds', price:'₹550/kg', rating:'★★★★★', image:'https://m.media-amazon.com/images/I/71XxXxXxXxL._SL1500_.jpg', link:'https://www.google.com/search?q=wheat+seeds+buy+online' },
-                { name:'Vegetable Seeds Pack', price:'₹299', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/81Kj2Kj2KjL._SL1500_.jpg', link:'https://www.google.com/search?q=vegetable+seeds+pack+buy+online' },
-                { name:'Cotton Seeds', price:'₹450/kg', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/71XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=cotton+seeds+buy+online' },
-                { name:'Maize Seeds', price:'₹400/kg', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=maize+seeds+buy+online' }
+                { name:'🍚 Hybrid Rice Seeds', price:'₹650/kg', rating:'★★★★☆', link:'https://www.google.com/search?q=hybrid+rice+seeds+buy+online', desc:'High yield variety' },
+                { name:'🌾 Wheat Seeds', price:'₹550/kg', rating:'★★★★★', link:'https://www.google.com/search?q=wheat+seeds+buy+online', desc:'Drought resistant variety' },
+                { name:'🥬 Vegetable Seeds Pack', price:'₹299', rating:'★★★★☆', link:'https://www.google.com/search?q=vegetable+seeds+pack+buy+online', desc:'10 vegetable varieties pack' },
+                { name:'🌿 Cotton Seeds', price:'₹450/kg', rating:'★★★★☆', link:'https://www.google.com/search?q=cotton+seeds+buy+online', desc:'Bollgard variety' }
             ],
             pesticides: [
-                { name:'Neem Oil Pesticide', price:'₹250/L', rating:'★★★★★', image:'https://m.media-amazon.com/images/I/71Kj2Kj2KjL._SL1500_.jpg', link:'https://www.google.com/search?q=neem+oil+pesticide+buy+online' },
-                { name:'Chemical Pesticide', price:'₹400/L', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/71yRlZGgBeL._SL1500_.jpg', link:'https://www.google.com/search?q=chemical+pesticide+buy+online' },
-                { name:'Bio Pesticide', price:'₹300/L', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=bio+pesticide+buy+online' }
+                { name:'🌿 Neem Oil Pesticide', price:'₹250/L', rating:'★★★★★', link:'https://www.google.com/search?q=neem+oil+pesticide+buy+online', desc:'Organic pest control' },
+                { name:'🧪 Chemical Pesticide', price:'₹400/L', rating:'★★★★☆', link:'https://www.google.com/search?q=chemical+pesticide+buy+online', desc:'Broad spectrum control' }
             ],
             irrigation: [
-                { name:'Drip Irrigation Kit', price:'₹2,499', rating:'★★★★★', image:'https://m.media-amazon.com/images/I/71yRlZGgBeL._SL1500_.jpg', link:'https://www.google.com/search?q=drip+irrigation+kit+buy+online' },
-                { name:'Sprinkler System', price:'₹3,999', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/71yRlZGgBeL._SL1500_.jpg', link:'https://www.google.com/search?q=sprinkler+system+buy+online' },
-                { name:'Hose Pipe', price:'₹599', rating:'★★★★☆', image:'https://m.media-amazon.com/images/I/61XxXxXxXxL._SL1000_.jpg', link:'https://www.google.com/search?q=garden+hose+pipe+buy+online' }
+                { name:'💧 Drip Irrigation Kit', price:'₹2,499', rating:'★★★★★', link:'https://www.google.com/search?q=drip+irrigation+kit+buy+online', desc:'Save water up to 50%' },
+                { name:'💦 Sprinkler System', price:'₹3,999', rating:'★★★★☆', link:'https://www.google.com/search?q=sprinkler+system+buy+online', desc:'Full coverage irrigation' }
             ]
         };
+        
         function showCategory(cat) { loadShopItems(cat); document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active')); event.target.classList.add('active'); }
-        function loadShopItems(cat) { let items = products[cat] || []; document.getElementById('shopGrid').innerHTML = items.map(p => `<div class="shop-item"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/400x300/2E7D32/white?text=${encodeURIComponent(p.name)}'"><div class="shop-item-content"><h4>${p.name}</h4><div class="rating">${p.rating}</div><p class="price">${p.price}</p><button class="buy-btn" onclick="window.open('${p.link}','_blank')">Buy Now on Google <i class="fas fa-external-link-alt"></i></button></div></div>`).join(''); }
-        function sendMessage() { let input=document.getElementById('chatInput'), msg=input.value.trim(); if(!msg) return; addMessage(msg,'user'); input.value=''; setTimeout(()=>{ let resp="🤖 Ask about fertilizers, pests, irrigation, crops, or subsidies!"; if(msg.includes('fertilizer')) resp="🌱 Use NPK 10:10:10. Soil testing recommended!"; else if(msg.includes('pest')) resp="🐞 Use neem oil for organic pest control."; else if(msg.includes('irrigation')) resp="💧 Drip irrigation saves 50% water."; addMessage(resp,'bot'); },500); }
+        function loadShopItems(cat) { 
+            let items = products[cat] || []; 
+            document.getElementById('shopGrid').innerHTML = items.map(p => `
+                <div class="shop-item">
+                    <div class="shop-item-content">
+                        <h4>${p.name}</h4>
+                        <div class="rating">${p.rating}</div>
+                        <p class="price">${p.price}</p>
+                        <p class="description">${p.desc}</p>
+                        <button class="buy-btn" onclick="window.open('${p.link}','_blank')">
+                            Buy Now on Google <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join(''); 
+        }
+        
+        function sendMessage() { let input=document.getElementById('chatInput'), msg=input.value.trim(); if(!msg) return; addMessage(msg,'user'); input.value=''; setTimeout(()=>{ let resp="🤖 Ask me about fertilizers, pests, irrigation, crops, or subsidies!"; if(msg.includes('fertilizer')) resp="🌱 Use NPK 10:10:10 fertilizer. Soil testing recommended!"; else if(msg.includes('pest')) resp="🐞 Use neem oil for organic pest control. Monitor crops regularly."; else if(msg.includes('irrigation')) resp="💧 Drip irrigation saves up to 50% water. Water early morning or evening."; else if(msg.includes('crop')) resp="🌾 Choose crops based on your soil type and climate. Rice needs clay soil with high rainfall."; else if(msg.includes('subsidy')) resp="📋 PM-KISAN provides ₹6000/year. KCC offers credit up to ₹3 lakh."; addMessage(resp,'bot'); },500); }
         function addMessage(t,s){ let div=document.getElementById('chatMessages'), msgDiv=document.createElement('div'); msgDiv.className=`message ${s}`; msgDiv.innerHTML=`<div class="message-content">${s==='bot'?'<i class="fas fa-robot"></i>':''}<p>${t}</p></div>`; div.appendChild(msgDiv); div.scrollTop=div.scrollHeight; }
         function handleChatKeyPress(e){ if(e.key==='Enter') sendMessage(); }
         function showNotification(m,t){ let n=document.createElement('div'); n.className='notification'; n.innerHTML=`<i class="fas ${t==='success'?'fa-check-circle':'fa-info-circle'}"></i> ${m}`; n.style.background=t==='success'?'#2E7D32':'#2196F3'; document.body.appendChild(n); setTimeout(()=>n.remove(),3000); }
         function scrollToPrediction(){ document.getElementById('prediction').scrollIntoView({behavior:'smooth'}); }
         function scrollToAssistant(){ document.getElementById('assistant').scrollIntoView({behavior:'smooth'}); }
+        
         function handleLanguageChange() {
             let lang=document.getElementById('languageSelect').value;
             let titles={en:'Smart Agriculture for Modern Farmers',hi:'आधुनिक किसानों के लिए स्मार्ट कृषि',gu:'આધુનિક ખેડૂતો માટે સ્માર્ટ એગ્રીકલ્ચર'};
-            if(titles[lang]) document.querySelector('.hero-content h1').innerHTML=titles[lang]+'<br><span>Modern Farmers</span>';
-            showNotification(`Language changed to ${lang.toUpperCase()}`,'success');
+            if(titles[lang]) document.querySelector('.hero h1').innerHTML=titles[lang]+'<br><span>Modern Farmers</span>';
+            showNotification(`Language changed to ${lang.toUpperCase()}`, 'success');
         }
+        
         document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('active'));
         document.getElementById('languageSelect').addEventListener('change',handleLanguageChange);
-        document.addEventListener('DOMContentLoaded',()=>{ initMap(); initCharts(); loadSchemes(); loadNews(); loadShopItems('fertilizers'); showNotification('🌾 AgroSmart Pro Ready! Click on map for location details.','success'); });
+        document.addEventListener('DOMContentLoaded',()=>{ initMap(); initCharts(); loadSchemes(); loadNews(); loadShopItems('fertilizers'); showNotification('🌾 AgroSmart Pro Ready! Use sidebar to navigate between sections.','success'); });
     </script>
 </body>
 </html>
