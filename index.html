@@ -113,7 +113,6 @@
         .category-btn.active, .category-btn:hover { background: linear-gradient(135deg, var(--primary-green), var(--secondary-green)); color: white; }
         .shop-item { transition: all 0.3s; background: white; border-radius: 16px; overflow: hidden; }
         .shop-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
-        /* Removed img styling - no images anymore */
         .shop-item-content { padding: 1rem; }
         .shop-item h4 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--dark); }
         .shop-item .price { color: var(--primary-green); font-weight: 700; font-size: 1.2rem; margin: 0.5rem 0; }
@@ -121,6 +120,27 @@
         .shop-item .description { font-size: 0.8rem; color: #666; margin-bottom: 1rem; line-height: 1.4; }
         .buy-btn { background: linear-gradient(135deg, var(--gold), var(--dark-gold)); color: var(--dark); border: none; padding: 0.7rem; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; }
         .buy-btn:hover { transform: scale(1.02); background: var(--dark-gold); }
+        
+        /* Features Section */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .feature-card { text-align: center; padding: 2rem; background: var(--white); border-radius: 20px; box-shadow: var(--shadow); transition: all 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .feature-card i { font-size: 3rem; color: var(--primary-green); margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: var(--dark); }
+        .feature-card p { font-size: 0.9rem; color: #666; }
+        
+        /* Contact Section */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-info { background: var(--light-green); padding: 2rem; border-radius: 20px; }
+        .contact-info h3 { color: var(--primary-green); margin-bottom: 1.5rem; }
+        .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding: 0.8rem; background: white; border-radius: 12px; transition: all 0.3s; }
+        .contact-detail:hover { transform: translateX(5px); box-shadow: var(--shadow); }
+        .contact-detail i { font-size: 1.5rem; color: var(--primary-green); width: 40px; text-align: center; }
+        .contact-detail .detail h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+        .contact-detail .detail p { font-size: 0.85rem; color: #666; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 10px; font-family: 'Poppins', sans-serif; }
+        .contact-form textarea { height: 100px; resize: vertical; }
+        .map-small { height: 200px; border-radius: 16px; overflow: hidden; margin-top: 1rem; }
         
         footer { background: linear-gradient(135deg, #1B1B1B, #2d2d2d); color: white; padding: 2rem 3rem 1rem; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
@@ -144,6 +164,8 @@
             .info-grid { grid-template-columns: 1fr; }
             .map-controls { top: 5px; right: 5px; }
             .map-controls button { padding: 4px 8px; font-size: 9px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -159,6 +181,8 @@
             <a href="#assistant"><i class="fas fa-robot"></i> AI Assistant</a>
             <a href="#schemes"><i class="fas fa-gavel"></i> Schemes</a>
             <a href="#shop"><i class="fas fa-store"></i> Agri Shop</a>
+            <a href="#features"><i class="fas fa-star"></i> Features</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
         </div>
         <div class="language-selector-sidebar">
             <select id="languageSelect"><option value="en">🇬🇧 English</option><option value="hi">🇮🇳 हिंदी</option><option value="gu">🇮🇳 ગુજરાતી</option></select>
@@ -262,7 +286,7 @@
             </div>
         </section>
 
-        <!-- AGRI SHOP SECTION - NO IMAGES, ONLY TEXT -->
+        <!-- AGRI SHOP SECTION -->
         <section id="shop" class="section">
             <div class="container">
                 <div class="section-header"><h2><i class="fas fa-store"></i> Agri Shop</h2><p>Quality agricultural products - Click "Buy Now" to purchase on Google Shopping</p></div>
@@ -277,11 +301,102 @@
             </div>
         </section>
 
+        <!-- FEATURES SECTION - Website Features Summary -->
+        <section id="features" class="section">
+            <div class="container">
+                <div class="section-header"><h2><i class="fas fa-star"></i> Platform Features</h2><p>Everything you need for smart farming</p></div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI Crop Prediction</h3>
+                        <p>Machine learning algorithm predicts crop yield based on temperature, rainfall, humidity, soil type, and crop selection with confidence scores.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Interactive Farm Map</h3>
+                        <p>Click on any location in India to get real-time weather data, soil information, and crop recommendations for that specific region.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI Assistant Chatbot</h3>
+                        <p>Get instant answers to your farming questions about fertilizers, pest control, irrigation techniques, and government subsidies.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Yield Analytics</h3>
+                        <p>Visualize crop yield comparisons and weather impact through interactive charts to make data-driven farming decisions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-gavel"></i>
+                        <h3>Government Schemes</h3>
+                        <p>Access information about Indian government agricultural schemes, subsidies, and benefits with direct links to official portals.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-store"></i>
+                        <h3>Agri Shop</h3>
+                        <p>Browse and purchase quality agricultural products including fertilizers, tools, seeds, pesticides, and irrigation equipment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>Agriculture News</h3>
+                        <p>Stay updated with the latest news, policy changes, and technological advancements in Indian and global agriculture.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-language"></i>
+                        <h3>Multi-Language Support</h3>
+                        <p>Available in English, Hindi, and Gujarati languages to serve farmers across different regions of India.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section gray-bg">
+            <div class="container">
+                <div class="section-header"><h2><i class="fas fa-envelope"></i> Contact Us</h2><p>Get in touch with our team</p></div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3><i class="fas fa-map-marker-alt"></i> Our Office</h3>
+                        <div class="contact-detail">
+                            <i class="fas fa-location-dot"></i>
+                            <div class="detail">
+                                <h4>Address</h4>
+                                <p>JG University, Drive-In Road, Ahmedabad, Gujarat - 380052</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <div class="detail">
+                                <h4>Email</h4>
+                                <p>agrosmartpro@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-clock"></i>
+                            <div class="detail">
+                                <h4>Working Hours</h4>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="map-small" id="contactMap" style="height: 200px;"></div>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <input type="text" id="contactName" placeholder="Your Name">
+                        <input type="email" id="contactEmail" placeholder="Your Email">
+                        <input type="text" id="contactSubject" placeholder="Subject">
+                        <textarea id="contactMessage" placeholder="Your Message"></textarea>
+                        <button class="btn-primary" onclick="sendContactMessage()">Send Message <i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <footer>
             <div class="footer-content">
                 <div class="footer-section"><h4><i class="fas fa-seedling"></i> AgroSmart Pro</h4><p>Empowering Indian farmers with AI-driven solutions</p></div>
-                <div class="footer-section"><h4>Quick Links</h4><a href="#prediction">Crop Predictor</a><a href="#map">Farm Map</a><a href="#assistant">AI Assistant</a><a href="#schemes">Schemes</a><a href="#shop">Agri Shop</a></div>
-                <div class="footer-section"><h4>Contact</h4><p><i class="fas fa-envelope"></i> support@agrosmartpro.com</p><p><i class="fas fa-phone"></i> 1800-123-4567</p></div>
+                <div class="footer-section"><h4>Quick Links</h4><a href="#prediction">Crop Predictor</a><a href="#map">Farm Map</a><a href="#assistant">AI Assistant</a><a href="#schemes">Schemes</a><a href="#shop">Agri Shop</a><a href="#features">Features</a><a href="#contact">Contact</a></div>
+                <div class="footer-section"><h4>Contact</h4><p><i class="fas fa-envelope"></i> agrosmartpro@gmail.com</p><p><i class="fas fa-map-marker-alt"></i> JG University, Drive-In Road, Ahmedabad, Gujarat</p></div>
             </div>
             <div class="footer-bottom"><p>&copy; 2024 AgroSmart Pro | Making farming smarter, together.</p></div>
         </footer>
@@ -289,6 +404,7 @@
 
     <script>
         let yieldChart, weatherChart, indiaMap, currentLayer, currentLocation = null;
+        let contactMap = null;
         
         function updateTime() {
             let now = new Date();
@@ -298,6 +414,17 @@
             document.getElementById('currentHumidity').textContent = `${Math.round(55 + Math.sin((hour-12)*Math.PI/12)*20)}%`;
         }
         setInterval(updateTime, 1000); updateTime();
+        
+        function initContactMap() {
+            if (document.getElementById('contactMap')) {
+                contactMap = L.map('contactMap').setView([23.0225, 72.5714], 13);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+                    subdomains: 'abcd'
+                }).addTo(contactMap);
+                L.marker([23.0225, 72.5714]).addTo(contactMap).bindPopup('JG University, Drive-In Road, Ahmedabad').openPopup();
+            }
+        }
         
         const indiaBounds = [[6.0, 68.0], [37.0, 97.0]];
         const indiaCenter = [20.5937, 78.9629];
@@ -328,6 +455,7 @@
                 marker.bindPopup(`<div><b>📍 ${loc.name}</b><br>🌱 Soil: ${loc.soil}<br>🌡️ Temp: ${loc.temp}°C<br>💧 Humidity: ${loc.humidity}%<br><button onclick="selectLocation('${loc.name}',${loc.temp},${loc.humidity},${loc.rainfall},'${loc.soil}')" style="margin-top:8px;background:#2E7D32;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;width:100%;">📊 Use for Prediction</button></div>`, { maxWidth: 250 });
                 marker.on('click', () => { currentLocation = loc; document.getElementById('mapInfo').style.display='block'; document.getElementById('selectedLocation').innerHTML=loc.name; document.getElementById('soilInfo').innerHTML=`Soil: ${loc.soil}`; document.getElementById('tempInfo').innerHTML=`Temp: ${loc.temp}°C`; document.getElementById('humidityInfo').innerHTML=`Humidity: ${loc.humidity}%`; document.getElementById('rainfallInfo').innerHTML=`Rainfall: ${loc.rainfall} mm`; document.getElementById('windInfo').innerHTML=`Wind: ${loc.wind} km/h`; document.getElementById('cropInfo').innerHTML=`Crops: ${loc.crops}`; });
             });
+            initContactMap();
         }
         
         function selectLocation(name, temp, hum, rain, soil) {
@@ -387,7 +515,6 @@
         
         function loadNews() { document.getElementById('newsGrid').innerHTML = [{ title:'MSP hike for Rabi crops', category:'Policy', date:'2024-01-15', source:'AgriMin', summary:'5-8% MSP increase for wheat, mustard' },{ title:'Drought-resistant wheat developed', category:'Technology', date:'2024-01-14', source:'ICAR', summary:'30% less water required' },{ title:'Organic farming subsidies increased', category:'Policy', date:'2024-01-13', source:'Govt', summary:'25% increase in subsidy' }].map(n=>`<div class="news-card"><div class="category-tag">${n.category}</div><h4>${n.title}</h4><p>${n.summary}</p><div class="date">📅 ${n.date} | ${n.source}</div></div>`).join(''); }
         
-        // PRODUCTS - NO IMAGES, ONLY TEXT
         const products = {
             fertilizers: [
                 { name:'🌱 NPK 20:20:20 Fertilizer', price:'₹450/kg', rating:'★★★★☆', link:'https://www.google.com/search?q=npk+20+20+20+fertilizer+buy+online', desc:'Balanced fertilizer for all crops' },
@@ -438,6 +565,21 @@
         function sendMessage() { let input=document.getElementById('chatInput'), msg=input.value.trim(); if(!msg) return; addMessage(msg,'user'); input.value=''; setTimeout(()=>{ let resp="🤖 Ask me about fertilizers, pests, irrigation, crops, or subsidies!"; if(msg.includes('fertilizer')) resp="🌱 Use NPK 10:10:10 fertilizer. Soil testing recommended!"; else if(msg.includes('pest')) resp="🐞 Use neem oil for organic pest control. Monitor crops regularly."; else if(msg.includes('irrigation')) resp="💧 Drip irrigation saves up to 50% water. Water early morning or evening."; else if(msg.includes('crop')) resp="🌾 Choose crops based on your soil type and climate. Rice needs clay soil with high rainfall."; else if(msg.includes('subsidy')) resp="📋 PM-KISAN provides ₹6000/year. KCC offers credit up to ₹3 lakh."; addMessage(resp,'bot'); },500); }
         function addMessage(t,s){ let div=document.getElementById('chatMessages'), msgDiv=document.createElement('div'); msgDiv.className=`message ${s}`; msgDiv.innerHTML=`<div class="message-content">${s==='bot'?'<i class="fas fa-robot"></i>':''}<p>${t}</p></div>`; div.appendChild(msgDiv); div.scrollTop=div.scrollHeight; }
         function handleChatKeyPress(e){ if(e.key==='Enter') sendMessage(); }
+        function sendContactMessage() {
+            let name = document.getElementById('contactName').value;
+            let email = document.getElementById('contactEmail').value;
+            let subject = document.getElementById('contactSubject').value;
+            let message = document.getElementById('contactMessage').value;
+            if(name && email && message) {
+                showNotification(`Thank you ${name}! We'll get back to you soon.`, 'success');
+                document.getElementById('contactName').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('contactSubject').value = '';
+                document.getElementById('contactMessage').value = '';
+            } else {
+                showNotification('Please fill all required fields!', 'error');
+            }
+        }
         function showNotification(m,t){ let n=document.createElement('div'); n.className='notification'; n.innerHTML=`<i class="fas ${t==='success'?'fa-check-circle':'fa-info-circle'}"></i> ${m}`; n.style.background=t==='success'?'#2E7D32':'#2196F3'; document.body.appendChild(n); setTimeout(()=>n.remove(),3000); }
         function scrollToPrediction(){ document.getElementById('prediction').scrollIntoView({behavior:'smooth'}); }
         function scrollToAssistant(){ document.getElementById('assistant').scrollIntoView({behavior:'smooth'}); }
